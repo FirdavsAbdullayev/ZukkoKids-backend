@@ -9,12 +9,21 @@
     "db:init": "node database/init.js",
     "db:seed": "node scripts/seed.js"
   },
-  "keywords": ["education", "kids", "gamification", "express", "sequelize"],
+  "keywords": [
+    "education",
+    "kids",
+    "gamification",
+    "express",
+    "sequelize"
+  ],
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
+    "express": "^4.22.3",
     "joi": "^17.13.3",
     "pg": "^8.12.0",
     "pg-hstore": "^2.3.4",
@@ -23,5 +32,14 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FirdavsAbdullayev/ZukkoKids-backend.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/FirdavsAbdullayev/ZukkoKids-backend/issues"
+  },
+  "homepage": "https://github.com/FirdavsAbdullayev/ZukkoKids-backend#readme"
 }

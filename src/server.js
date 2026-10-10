@@ -23,12 +23,29 @@ async function startServer() {
     await db.sequelize.sync();
     console.log('🗄  Model tablitsalari sinxronlashtirildi.');
 
+    // Bo'sh bazada darslarni avtomatik seed qilish (yangi deploy uchun qulay)
+    try {
+      const lessonCount = await db.Lesson.count();
+      if (lessonCount === 0) {
+        const lessons = require('./data/lessons');
+        for (const lesson of lessons) {
+          await db.Lesson.findOrCreate({
+            where: { title: lesson.title },
+            defaults: lesson,
+          });
+        }
+        console.log(`🌱 ${lessons.length} ta dars bazaga avtomatik qo'shildi.`);
+      }
+    } catch (seedErr) {
+      console.error('⚠️ Avtomatik seed xatosi:', seedErr.message);
+    }
+
     const server = app.listen(PORT, () => {
       console.log(`
   ╔═══════════════════════════════════════════╗
   ║   🎓 ZukkoKids Server ishga tushdi!       ║
-  ║   🌐 API:   http://localhost:${PORT}/api     ║
-  ║   📖 Docs:  http://localhost:${PORT}/api-docs║
+  ║   🌐 Port:  ${PORT}
+  ║   📖 Docs:  /api-docs                     ║
   ╚═══════════════════════════════════════════╝`);
     });
 

@@ -1,0 +1,27 @@
+# Render Blueprint — ZukkoKids backend.
+# Bu fayl ixtiyoriy: Render'ning "Blueprints" bo'limida repo'ni tanlasangiz,
+# servis va PostgreSQL bazasi avtomatik yaratiladi.
+# Qo'lda (Dashboard orqali) joylashtirsangiz ham bo'ladi — pastdagi env'larni qo'lda kiriting.
+services:
+  - type: web
+    name: zukkokids-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: zukkokids-db
+          property: connectionString
+
+databases:
+  - name: zukkokids-db
+    plan: free
+    databaseName: zukkokids
+    user: zukkokids
